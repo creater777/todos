@@ -1,4 +1,4 @@
-import {takeEvery, put, call} from 'redux-saga/effects'
+import {takeEvery, put, call, select, cancel} from 'redux-saga/effects'
 import {baseUrl} from "../config";
 
 export const PROFILE_FETCH = "PROFILE_FETCH"
@@ -40,6 +40,8 @@ export function* watchFetchProfile() {
 
 export function* fetchProfileSaga(action) {
   const id = action.id
+  const state = yield select()
+  Array.isArray(state.profile.user) && state.profile.user.length && (yield cancel())
   try {
     yield put(requestProfile())
     const data = yield call(

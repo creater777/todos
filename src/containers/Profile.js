@@ -11,18 +11,53 @@ import TaskList from './TaskList'
 class Profile extends Component {
 
   componentWillMount(){
+    this.setState({
+      editing: false
+    })
     this.props.fetchProfile(userId)
+  }
+
+  handleEdit(){
+    this.setState({
+      editing: !this.state.editing,
+      form: this.props.user
+    })
+  }
+
+  handleSave(e){
+    window.__DATA__ = {}
+    window.__DATA__.user = this.state.form
+    this.setState({
+      editing: false
+    })
+  }
+
+  handleChange(e){
+    const val = this.state.form
+    val[e.target.id] = e.target.value
+    this.setState({
+      form: val
+    })
   }
 
   render() {
     const {user} = this.props
+    const {editing} = this.state
     return [
       <NavBar key="nav-bar"/>,
       <div key="container" className="container">
         <h2>Задачи {user && user.name}</h2>
         {
-          user && <div className="row">
-            <ProfileForm className="col-md-4" user={user}/>
+          user &&
+          <div className="row">
+            <ProfileForm
+              className="col-md-4"
+              user={user}
+              editing={editing}
+              handleEdit={this.handleEdit.bind(this)}
+              handleSave={this.handleSave.bind(this)}
+              handleChange={this.handleChange.bind(this)}
+            />
             <TaskList className="col-md-8" userId={user.id}/>
           </div>
         }

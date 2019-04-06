@@ -7,6 +7,6 @@ export default () =>
     <NavBar key="nav-bar"/>,
     <div key="container" className="container">
       <h2>Все задачи</h2>
-      <TaskList />
+      <TaskList className="mb-1"/>
     </div>
   ]

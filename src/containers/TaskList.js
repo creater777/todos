@@ -25,9 +25,11 @@ class TaskList extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, props) => {
   return {
-    list: state.tasks.list,
+    list: (props.userId && state.tasks.list &&
+      state.tasks.list.filter(task => task.userId === props.userId)) ||
+      state.tasks.list,
     users: state.profile.user
   }
 }

@@ -7,12 +7,14 @@ const labels = ["Все задачи", "Мои задачи"]
 
 class NavBar extends React.Component {
   render() {
+    const user = window.__DATA__ && window.__DATA__.user
     return (
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="collapse navbar-collapse">
           <ul className="navbar-nav mr-auto">
             {pages.map(this._renderLink)}
           </ul>
+          <span className="navbar-text">{user && user.name}</span>
         </div>
       </nav>
     );
