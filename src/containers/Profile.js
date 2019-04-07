@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import { connect } from 'react-redux'
 
 import {userId} from '../config'
-import {fetchProfile} from '../actions/profile'
+import {fetchProfile, editProfile} from '../actions/profile'
 
 import NavBar from './NavBar'
 import ProfileForm from '../components/ProfileForm'
@@ -19,24 +19,20 @@ class Profile extends Component {
 
   handleEdit(){
     this.setState({
-      editing: !this.state.editing,
-      form: this.props.user
+      editing: !this.state.editing
     })
   }
 
   handleSave(e){
-    window.__DATA__ = {}
-    window.__DATA__.user = this.state.form
     this.setState({
       editing: false
     })
-  }
-
-  handleChange(e){
-    const val = this.state.form
-    val[e.target.id] = e.target.value
-    this.setState({
-      form: val
+    this.props.editProfile({
+      ...this.props.user,
+      name: e.target.name.value,
+      phone: e.target.phone.value,
+      email: e.target.email.value,
+      website: e.target.website.value
     })
   }
 
@@ -56,7 +52,6 @@ class Profile extends Component {
               editing={editing}
               handleEdit={this.handleEdit.bind(this)}
               handleSave={this.handleSave.bind(this)}
-              handleChange={this.handleChange.bind(this)}
             />
             <TaskList className="col-md-8" userId={user.id}/>
           </div>
@@ -68,9 +63,12 @@ class Profile extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.profile.user[0],
+    user: state.profile.user[userId],
     fetch: state.profile
   }
 }
 
-export default connect(mapStateToProps, {fetchProfile})(Profile)
+export default connect(mapStateToProps, {
+  fetchProfile,
+  editProfile
+})(Profile)

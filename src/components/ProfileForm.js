@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default ({className, user, editing, handleEdit, handleChange, handleSave}) =>
+export default ({className, user, editing, handleEdit, handleSave}) =>
   <div className={className}>
     <p>
       {user.name}
@@ -22,19 +22,23 @@ export default ({className, user, editing, handleEdit, handleChange, handleSave}
       <form onSubmit={handleSave}>
         <div className="form-group">
           <label htmlFor="name">Имя</label>
-          <input type="text" className="form-control" id="name" onChange={handleChange} placeholder={user.name}/>
+          <input type="text" className="form-control" id="name"
+                 placeholder={user.name} defaultValue={user.name}/>
         </div>
         <div className="form-group">
           <label htmlFor="phone">Телефон</label>
-          <input type="text" className="form-control" id="phone" onChange={handleChange} placeholder={user.phone}/>
+          <input type="text" className="form-control" id="phone"
+                 placeholder={user.phone} defaultValue={user.phone}/>
         </div>
         <div className="form-group">
           <label htmlFor="email">Email</label>
-          <input type="email" className="form-control" id="email" onChange={handleChange} placeholder={user.email}/>
+          <input type="email" className="form-control" id="email"
+                 placeholder={user.email} defaultValue={user.email}/>
         </div>
         <div className="form-group">
           <label htmlFor="website">Сайт</label>
-          <input type="text" className="form-control" id="website" onChange={handleChange} placeholder={user.website}/>
+          <input type="text" className="form-control" id="website"
+                 placeholder={user.website} defaultValue={user.website}/>
         </div>
         <button type="submit" className="btn btn-primary">Сохранить</button>
       </form>

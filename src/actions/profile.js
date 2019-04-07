@@ -1,10 +1,18 @@
 import {takeEvery, put, call, select, cancel} from 'redux-saga/effects'
-import {baseUrl} from "../config";
+import {baseUrl} from "../config"
 
+export const PROFILE_EDIT = "PROFILE_EDIT"
 export const PROFILE_FETCH = "PROFILE_FETCH"
 export const PROFILE_REQUEST = "PROFILE_REQUEST"
 export const PROFILE_REQUEST_SUCCESS = "PROFILE_REQUEST_SUCCESS"
 export const PROFILE_REQUEST_FAILED = "PROFILE_REQUEST_FAILED"
+
+export function editProfile(user) {
+  return {
+    type: PROFILE_EDIT,
+    data: [user]
+  }
+}
 
 export function fetchProfile(id) {
   return {
@@ -41,7 +49,7 @@ export function* watchFetchProfile() {
 export function* fetchProfileSaga(action) {
   const id = action.id
   const state = yield select()
-  Array.isArray(state.profile.user) && state.profile.user.length && (yield cancel())
+  id && state.profile.user[id] && (yield cancel())
   try {
     yield put(requestProfile())
     const data = yield call(
