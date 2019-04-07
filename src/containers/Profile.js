@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
+import PropTypes from "prop-types"
 
 import {userId} from '../config'
 import {fetchProfile, editProfile} from '../actions/profile'
@@ -63,8 +64,7 @@ class Profile extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.profile.user[userId],
-    fetch: state.profile
+    user: state.profile.user[userId]
   }
 }
 
@@ -72,3 +72,14 @@ export default connect(mapStateToProps, {
   fetchProfile,
   editProfile
 })(Profile)
+
+Profile.propTypes = {
+  user: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    username: PropTypes.string,
+    email: PropTypes.string,
+    phone: PropTypes.string,
+    website: PropTypes.string
+  })
+}

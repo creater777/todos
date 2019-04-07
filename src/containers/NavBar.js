@@ -1,6 +1,6 @@
-import React from "react";
-import {withRouter} from "react-router";
-import {NavLink} from "react-router-dom";
+import React from "react"
+import {withRouter} from "react-router"
+import {NavLink} from "react-router-dom"
 
 const pages = ["tasks", "profile"];
 const labels = ["Все задачи", "Мои задачи"]
@@ -35,4 +35,4 @@ class NavBar extends React.Component {
   }
 }
 
-export default withRouter(NavBar);
+export default withRouter(NavBar)
