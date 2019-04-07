@@ -2,22 +2,24 @@ import React, {Component} from 'react'
 import { connect } from 'react-redux'
 
 import {fetchTasks} from '../actions/tasks'
+import {fetchProfile} from '../actions/profile'
 
 class TaskList extends Component {
 
   componentWillMount(){
-    const {user, fetchTasks} = this.props
+    const {user, fetchTasks, fetchProfile} = this.props
     fetchTasks(user && user.id)
+    fetchProfile(user && user.id)
   }
 
   render(){
-    const {list, className} = this.props
+    const {list, users, className} = this.props
     return <div className={className}>
       <ul className="list-group">
         {list && list.map((task, i) =>
           <li key={i} className="list-group-item d-flex justify-content-between align-items-center">
             <h5 className="mb-1">{task.title}</h5>
-            <small></small>
+            <small>{users[task.userId] && users[task.userId].name}</small>
           </li>
         )}
       </ul>
@@ -34,4 +36,7 @@ const mapStateToProps = (state, props) => {
   }
 }
 
-export default connect(mapStateToProps, {fetchTasks})(TaskList)
+export default connect(mapStateToProps, {
+  fetchTasks,
+  fetchProfile
+})(TaskList)
